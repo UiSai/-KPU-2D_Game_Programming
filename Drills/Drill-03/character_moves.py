@@ -1,4 +1,5 @@
 from pico2d import *
+from math import *
 
 open_canvas()
 
@@ -8,6 +9,10 @@ character = load_image('character.png')
 x = 400
 y = 90
 s = 0
+r = 200
+rad = 0
+deg = 270
+
 
 def character_move_square():
     global x, y, s
@@ -45,103 +50,25 @@ def character_move_square():
         delay(0.01)
 
 def character_move_circle():
-    global x, y, s
+    global x, y, s, deg, rad, cp_x, cp_y
 
-    if (400 <= x < 400 + 380 and 90 <= y < 160):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 2
-        y = y + 1
-        delay(0.01)
-    elif (400 <= x < 400 + 380 and 150 <= y < 230):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 2
-        y = y + 2
-        delay(0.01)
-    elif (400 <= x < 400 + 380 and 210 <= y < 300):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 1
-        y = y + 2
-        delay(0.01)
 
- 
-    elif (400 < x <= 400 + 380 and 300 <= y < 370):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x - 1
-        y = y + 2
-        delay(0.01)
-    elif (400 < x <= 400 + 380 and 370 <= y < 440):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x - 2
-        y = y + 2
-        delay(0.01)
-    elif (400 < x <= 400 + 380 and 440 <= y < 510):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x - 2
-        y = y + 1
-        delay(0.01)
+    rad = radians(deg)
+    cp_x = 400 + (r * cos(rad))
+    cp_y = 290 + (r * sin(rad))
+    clear_canvas_now()
+    grass.draw_now(400, 30)
+    character.draw_now(cp_x, cp_y)
+    deg = deg + 1
+    if (cp_x <= 400 and 90 < cp_y <= 91):
+        s = 0
+        deg = 270
+    delay(0.01)
 
-        
-    elif (400 - 380 < x <= 400 and 440 < y <= 510):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x - 2
-        y = y - 1
-        delay(0.01)
-    elif (400 - 380 < x <= 400 and 370 < y <= 440):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x - 2
-        y = y - 2
-        delay(0.01)
-    elif (400 - 380 < x <= 400 and 300 < y <= 370):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x - 1
-        y = y - 2
-        delay(0.01)
 
-        
-    elif (400 - 380 < x <= 400 and 230 < y <= 300):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 1
-        y = y - 2
-        delay(0.01)
-    elif (400 - 380 < x <= 400 and 160 < y <= 230):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 2
-        y = y - 2
-        delay(0.01)
-    elif (400 - 380 < x <= 400 and 90 < y <= 160):
-        clear_canvas_now()
-        grass.draw_now(400, 30)
-        character.draw_now(x, y)
-        x = x + 2
-        y = y - 1
-        s = s + 1
-        if (y == 90):
-            s = 0
-        delay(0.01)
 
-while (x < 1000):
+
+while (True):
     if(s < 190):
         character_move_square()
     else:
