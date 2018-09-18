@@ -7,6 +7,40 @@ hide_lattice()
 grass = load_image('grass.png')
 character = load_image('animation_sheet.png')
 frame = 0
+point_count = 0
+x_DB = (203, 132, 535, 477, 715, 316, 510, 692, 682, 712)
+y_DB = (535, 243, 470, 203, 136, 225, 92, 518, 336, 349)
+
+
+def move_point_to_point():
+    global x_DB, y_DB, point_count
+    x, y = x_DB[point_count], y_DB[point_count]  # 이동 중의 현재 좌표를 계산할 x, y값
+    fix_x, fix_y = x_DB[point_count], y_DB[point_count]  # 기울기를 계산할 처음 위치의 고정 좌표값
+    if (point_count == 9):  # 리스트(튜플) 반복 조건
+        point_count = -1
+    next_x, next_y = x_DB[point_count + 1], y_DB[point_count + 1]  # 목적지 좌표값
+
+    i = (next_y - fix_y) / (next_x - fix_x)  # 기울기 계산. 기울기 값에 따라 속도가 달라짐. 함수 마지막 부분의 x 증가량으로 속도 조절.
+    b = y - i * x  # 상수 계산
+
+    while (abs(x - next_x) > 0 ):
+        y = i * x + b  # 좌표값을 구함
+        if (x - next_x < 0):
+            run_to_right(x, y)
+            x += 1
+        else:
+            run_to_left(x, y)
+            x -= 1
+
+    point_count += 1
+
+def judge_value_plus_minus(fix_x, next_x, x):
+    if (fix_x < next_x):
+        x = x + 1
+        return x
+    else:
+        x = x - 1
+        return x
 
 def run_to_right(x, y):
     global frame
@@ -30,146 +64,7 @@ def run_to_left(x, y):
     delay(0.05)
     get_events()
 
-def move_first_coordinates_to_second():
-    x, y = 203, 535  # 이동 중의 현재 좌표를 계산할 x, y값
-    fix_x, fix_y = 203, 535  # 기울기를 계산할 처음 위치의 고정 좌표값
-    next_x, next_y = 132, 243  # 목적지 좌표값
-
-    i = (next_y - y) / (next_x - x)  # 기울기 계산. 기울기 값에 따라 속도가 달라짐. 함수 마지막 부분의 x 증가량으로 속도 조절.
-    b = fix_y - i * fix_x  # 상수 계산
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b  # 좌표값을 구함
-        run_to_left(x, y)
-        x -= 1
-
-def move_second_coordinates_to_third():
-    x, y = 132, 243
-    fix_x, fix_y = 132, 243
-    next_x, next_y = 535, 470
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_right(x, y)
-        x += 1
-
-def move_third_coordinates_to_fourth():
-    x, y = 535, 470
-    fix_x, fix_y = 535, 470
-    next_x, next_y = 477, 203
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_left(x, y)
-        x -= 1
-
-def move_fourth_coordinates_to_fifth():
-    x, y = 477, 203
-    fix_x, fix_y = 477, 203
-    next_x, next_y = 715, 136
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_right(x, y)
-        x += 1
-
-def move_fifth_coordinates_to_sixth():
-    x, y = 715, 136
-    fix_x, fix_y = 715, 136
-    next_x, next_y = 316, 225
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_left(x, y)
-        x -= 1
-
-def move_sixth_coordinates_to_seventh():
-    x, y = 316, 225
-    fix_x, fix_y = 316, 225
-    next_x, next_y = 510, 92
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_right(x, y)
-        x += 1
-
-def move_seventh_coordinates_to_eighth():
-    x, y = 510, 92
-    fix_x, fix_y = 510, 92
-    next_x, next_y = 692, 518
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_right(x, y)
-        x += 1
-
-def move_eighth_coordinates_to_ninth():
-    x, y = 692, 518
-    fix_x, fix_y = 692, 518
-    next_x, next_y = 682, 336
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_left(x, y)
-        x -= 1
-
-def move_ninth_coordinates_to_tenth():
-    x, y = 682, 336
-    fix_x, fix_y = 682, 336
-    next_x, next_y = 712, 349
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_right(x, y)
-        x += 1
-
-def move_tenth_coordinates_to_first():
-    x, y = 712, 349
-    fix_x, fix_y = 712, 349
-    next_x, next_y = 203, 535
-
-    i = (next_y - y) / (next_x - x)
-    b = fix_y - i * fix_x
-
-    while (abs(x - next_x) > 0 ):
-        y = i * x + b
-        run_to_left(x, y)
-        x -= 1
-
 while True:
-    move_first_coordinates_to_second()
-    move_second_coordinates_to_third()
-    move_third_coordinates_to_fourth()
-    move_fourth_coordinates_to_fifth()
-    move_fifth_coordinates_to_sixth()
-    move_sixth_coordinates_to_seventh()
-    move_seventh_coordinates_to_eighth()
-    move_eighth_coordinates_to_ninth()
-    move_ninth_coordinates_to_tenth()
-    move_tenth_coordinates_to_first()
+    move_point_to_point()
 
 close_canvas()
