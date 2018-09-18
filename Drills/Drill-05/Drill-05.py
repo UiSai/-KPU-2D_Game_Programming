@@ -160,7 +160,6 @@ def move_tenth_coordinates_to_first():
         run_to_left(x, y)
         x -= 1
 
-delay(5)
 while True:
     move_first_coordinates_to_second()
     move_second_coordinates_to_third()
