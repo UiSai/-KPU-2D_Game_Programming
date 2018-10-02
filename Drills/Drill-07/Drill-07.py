@@ -13,7 +13,10 @@ def move_point_to_point(p1, p2):
         t = i / 100
         x = (1 - t) * p1[0] + t * p2[0]
         y = (1 - t) * p1[1] + t * p2[1]
-        run_to_left_animation(x, y)
+        if p1[0] > p2[0]:
+            run_to_left_animation(x, y)
+        else:
+            run_to_right_animation(x, y)
 
     #draw_point(p2) # 마지막 점을 위 반복문에서 찍지 않기 때문에 별도로 찍어줘야 함
 
