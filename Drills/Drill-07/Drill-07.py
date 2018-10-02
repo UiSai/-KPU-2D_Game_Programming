@@ -1,12 +1,5 @@
 from pico2d import *
 import random
-"""
-def draw_big_point(p):
-    turtle.goto(p)
-    turtle.color(0.8, 0.9, 0)
-    turtle.dot(15)
-    turtle.write('     '+str(p))
-"""
 
 def move_point_to_point(p1, p2):
     for i in range(0, 100 + 1, 5):
