@@ -20,19 +20,6 @@ def move_point_to_point(p1, p2):
 
     #draw_point(p2) # 마지막 점을 위 반복문에서 찍지 않기 때문에 별도로 찍어줘야 함
 
-"""
-def move_line(p1, p2):
-    draw_big_point(p1)
-    draw_big_point(p2)
-
-    for i in range(0, 100 + 1, 5):
-        t = i / 100
-        x = (1 - t) * p1[0] + t * p2[0]
-        y = (1 - t) * p1[1] + t * p2[1]
-        draw_point((x, y))
-
-    draw_point(p2) # 마지막 점을 위 반복문에서 찍지 않기 때문에 별도로 찍어줘야 함
-"""
 def run_to_right_animation(x, y):
     global frame
     right = 100
