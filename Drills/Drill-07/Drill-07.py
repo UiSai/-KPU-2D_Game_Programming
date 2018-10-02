@@ -69,3 +69,4 @@ point_count = 0
 while True:
     move_point_to_point(position[n - 1], position[n])
     n = (n + 1) % size
+    print(position)
