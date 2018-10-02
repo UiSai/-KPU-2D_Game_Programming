@@ -5,7 +5,7 @@ def move_point_to_point(p1, p2):
     for i in range(0, 100 + 1, 5):
         t = i / 100
         x = (1 - t) * p1[0] + t * p2[0]
-        y = (1 - t) * p1[1] + t * p2[1]
+        y = (1 - t) * p1[1] + t * p2[1]  #parametric representation
         if p1[0] > p2[0]:
             run_to_left_animation(x, y)
         else:
@@ -38,7 +38,7 @@ def run_to_left_animation(x, y):
     get_events()
 
 size = 10
-position = [(random.randint(0, 800), random.randint(0, 600)) for i in range(size)]
+position = [(random.randint(0, 800), random.randint(0, 600)) for i in range(size)] #list comprehension
 n = 1
 
 
