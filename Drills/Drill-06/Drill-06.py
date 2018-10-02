@@ -77,32 +77,29 @@ def draw_moving_screen():
     right = 100
 
     #handle_events()
-    print(direction)
     i, b = move_calculation()
     character_y = i * character_x + b  # 캐릭터 좌표값을 구함
     #calculate_position(goto_x, goto_y)
     if direction == 'right':
-        while (goto_x - character_x > 0):
-            clear_canvas()
-            draw_base()
-            character_y = i * character_x + b
-            character.clip_draw(frame * 100, right, 100, 100, character_x, character_y)
-            frame = (frame + 1) % 8
-            character_x += 5
-            delay(0.05)
-            handle_events()
-            update_canvas()
+        clear_canvas()
+        draw_base()
+        character_x += 5  # 이 증가량을 아래 character_y 계산보다 뒤로 미루면 y값이 바뀌지 않음.
+        character_y = i * character_x + b
+        character.clip_draw(frame * 100, right, 100, 100, character_x, character_y)
+        frame = (frame + 1) % 8
+        delay(0.05)
+        handle_events()
+        update_canvas()
     elif direction == 'left':
-        while (goto_x - character_x < 0):
-            clear_canvas()
-            draw_base()
-            character_y = i * character_x + b
-            character.clip_draw(frame * 100, left, 100, 100, character_x, character_y)
-            frame = (frame + 1) % 8
-            character_x -= 5
-            delay(0.05)
-            handle_events()
-            update_canvas()
+        clear_canvas()
+        draw_base()
+        character_x -= 5
+        character_y = i * character_x + b
+        character.clip_draw(frame * 100, left, 100, 100, character_x, character_y)
+        frame = (frame + 1) % 8
+        delay(0.05)
+        handle_events()
+        update_canvas()
     else:
         clear_canvas()
         draw_base()
