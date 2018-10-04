@@ -6,7 +6,7 @@ def move_point_to_point(p1, p2):
         t = i / 100
         x = (1 - t) * p1[0] + t * p2[0]
         y = (1 - t) * p1[1] + t * p2[1]  #parametric representation
-        handle_events()
+        # print('test')
         if p1[0] > p2[0]:
             run_to_left_animation(x, y)
         else:
@@ -16,8 +16,8 @@ def move_point_to_point(p1, p2):
 
 def run_to_right_animation(x, y):
     global frame
-    handle_events()
     right = 100
+    handle_events()
 
     clear_canvas()
     grass.draw(400, 0)
@@ -29,6 +29,7 @@ def run_to_right_animation(x, y):
 def run_to_left_animation(x, y):
     global frame
     left = 0
+    handle_events()
 
     clear_canvas()
     grass.draw(400, 0)
@@ -48,8 +49,7 @@ def handle_events():
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_RIGHT:
-            print('test')
+            print('bye')
 
 size = 10
 position = [(random.randint(0, 800), random.randint(0, 600)) for i in range(size)] #list comprehension
