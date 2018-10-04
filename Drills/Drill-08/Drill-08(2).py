@@ -1,6 +1,8 @@
 from pico2d import *
 import random
 
+KPU_WIDTH, KPU_HEIGHT = 1280, 1024
+
 def move_point_to_point(p1, p2):
     for i in range(0, 100 + 1, 5):
         t = i / 100
@@ -20,7 +22,7 @@ def run_to_right_animation(x, y):
     handle_events()
 
     clear_canvas()
-    grass.draw(400, 0)
+    kpu_ground.draw(KPU_WIDTH / 2, KPU_HEIGHT / 2)
     character.clip_draw(frame * 100, right, 100, 100, x, y)
     update_canvas()
     frame = (frame + 1) % 8
@@ -32,7 +34,7 @@ def run_to_left_animation(x, y):
     handle_events()
 
     clear_canvas()
-    grass.draw(400, 0)
+    kpu_ground.draw(KPU_WIDTH / 2, KPU_HEIGHT / 2)
     character.clip_draw(frame * 100, left, 100, 100, x, y)
     update_canvas()
     frame = (frame + 1) % 8
@@ -74,6 +76,7 @@ def draw_curve_points(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):
         x = (2*t**2-3*t+1)*p1[0]+(-4*t**2+4*t)*p2[0]+(2*t**2-t)*p3[0]
         y = (2*t**2-3*t+1)*p1[1]+(-4*t**2+4*t)*p2[1]+(2*t**2-t)*p3[1]
         #draw_point((x, y))
+        run_to_left_animation(x, y)
     #draw_point(p2) 스탬프
 
     # draw p2-p3
@@ -82,6 +85,7 @@ def draw_curve_points(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):
         x = ((-t**3 + 2*t**2 - t)*p1[0] + (3*t**3 - 5*t**2 + 2)*p2[0] + (-3*t**3 + 4*t**2 + t)*p3[0] + (t**3 - t**2)*p4[0])/2
         y = ((-t**3 + 2*t**2 - t)*p1[1] + (3*t**3 - 5*t**2 + 2)*p2[1] + (-3*t**3 + 4*t**2 + t)*p3[1] + (t**3 - t**2)*p4[1])/2
         #draw_point((x, y))
+        run_to_left_animation(x, y)
     #draw_point(p4)
 
     # draw p4-p1
@@ -90,16 +94,18 @@ def draw_curve_points(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):
         x = ((-t**3 + 2*t**2 - t)*p3[0] + (3*t**3 - 5*t**2 + 2) * p4[0] + (-3*t**3 + 4*t**2 + t) * p1[0] + (t**3 - t**2)*p2[0])/2
         y = ((-t**3 + 2*t**2 - t)*p3[1] + (3*t**3 - 5*t**2 + 2) * p4[1] + (-3*t**3 + 4*t**2 + t) * p1[1] + (t**3 - t**2)*p2[1])/2
         #draw_point((x, y))
+        run_to_left_animation(x, y)
     #draw_point(p1)
+
 
 size = 10
 pos = [(random.randint(0, 800), random.randint(0, 600)) for i in range(size)] #list comprehension
 n = 1
 
-
-open_canvas()
+open_canvas(KPU_WIDTH, KPU_HEIGHT)
 hide_lattice()
 character = load_image('animation_sheet.png')
+kpu_ground = load_image('KPU_GROUND.png')
 frame = 0
 running = True
 
