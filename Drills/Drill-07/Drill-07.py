@@ -6,6 +6,7 @@ def move_point_to_point(p1, p2):
         t = i / 100
         x = (1 - t) * p1[0] + t * p2[0]
         y = (1 - t) * p1[1] + t * p2[1]  #parametric representation
+        handle_events()
         if p1[0] > p2[0]:
             run_to_left_animation(x, y)
         else:
@@ -15,6 +16,7 @@ def move_point_to_point(p1, p2):
 
 def run_to_right_animation(x, y):
     global frame
+    handle_events()
     right = 100
 
     clear_canvas()
@@ -23,7 +25,6 @@ def run_to_right_animation(x, y):
     update_canvas()
     frame = (frame + 1) % 8
     delay(0.05)
-    get_events()
 
 def run_to_left_animation(x, y):
     global frame
@@ -37,6 +38,19 @@ def run_to_left_animation(x, y):
     delay(0.05)
     get_events()
 
+def handle_events():
+    global running
+
+    events = get_events()
+
+    for event in events:
+        if event.type == SDL_QUIT:
+            running = False
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            running = False
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_RIGHT:
+            print('test')
+
 size = 10
 position = [(random.randint(0, 800), random.randint(0, 600)) for i in range(size)] #list comprehension
 n = 1
@@ -47,9 +61,8 @@ hide_lattice()
 grass = load_image('grass.png')
 character = load_image('animation_sheet.png')
 frame = 0
-point_count = 0
+running = True
 
-while True:
+while running:
     move_point_to_point(position[n - 1], position[n])
     n = (n + 1) % size
-    print(position)
