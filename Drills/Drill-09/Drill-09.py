@@ -25,7 +25,6 @@ class Boy:
 class Ball:
     def __init__(self):
         self.x, self.y = random.randint(0, 800), 599
-        self.frame = 0
         self.image = load_image('ball21x21.png')
 
     def update(self):
@@ -64,10 +63,18 @@ while running:
     for boy in team:
         boy.update()
 
+    for ball in balls:
+        ball.update()
+
     clear_canvas()
     grass.draw()
+
     for boy in team:
         boy.draw()
+
+    for ball in balls:
+        ball.draw()
+
     update_canvas()
 
     delay(0.05)
