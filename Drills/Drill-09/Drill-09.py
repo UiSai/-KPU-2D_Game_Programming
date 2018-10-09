@@ -1,7 +1,6 @@
 from pico2d import *
 import random
 
-# Game object class here
 class Grass:
     def __init__(self):
         self.image = load_image('grass.png')
@@ -31,6 +30,8 @@ class mini_Ball:
     def update(self):
         if (self.y > 60):
             self.y -= self.falling_speed
+        else:
+            self.y = 60
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -44,6 +45,8 @@ class big_Ball:
     def update(self):
         if (self.y > 60):
             self.y -= self.falling_speed
+        else:
+            self.y = 60
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -57,47 +60,41 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
 
-# initialization code
 open_canvas()
 
-#boy = Boy()
+
 mini_number = random.randint(1, 21)
+print('작은 공의 개수 :', mini_number)
+print('큰 공의 개수 :', 20 - mini_number)
 team = [Boy() for i in range(11)]
 balls = [mini_Ball() for i in range(mini_number)]
-balls_2 = [big_Ball() for j in range(21 - mini_number)]
+balls_2 = [big_Ball() for i in range(20 - mini_number)]
 grass = Grass()
-
-
 
 running = True
 
-
-# game main loop code
 while running:
     handle_events()
 
-    #team.update()
     for boy in team:
         boy.update()
-    for ball in balls:
-        ball.update()
-    for ball in balls_2:
-        ball.update()
+    for mini_ball in balls:
+        mini_ball.update()
+    for big_ball in balls_2:
+        big_ball.update()
 
     clear_canvas()
     grass.draw()
 
     for boy in team:
         boy.draw()
-    for ball in balls:
-        ball.draw()
-    for ball in balls_2:
-        ball.draw()
+    for mini_ball in balls:
+        mini_ball.draw()
+    for big_ball in balls_2:
+        big_ball.draw()
 
     update_canvas()
-
     delay(0.05)
 
 
-# finalization code
 close_canvas()
