@@ -61,9 +61,10 @@ def handle_events():
 open_canvas()
 
 #boy = Boy()
+mini_number = random.randint(1, 21)
 team = [Boy() for i in range(11)]
-balls = [mini_Ball() for i in range(11)]
-balls_2 = [big_Ball() for j in range(11)]
+balls = [mini_Ball() for i in range(mini_number)]
+balls_2 = [big_Ball() for j in range(21 - mini_number)]
 grass = Grass()
 
 
