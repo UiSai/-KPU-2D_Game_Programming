@@ -48,6 +48,7 @@ open_canvas()
 
 #boy = Boy()
 team = [Boy() for i in range(11)]
+balls = [Ball() for i in range(21)]
 grass = Grass()
 
 
