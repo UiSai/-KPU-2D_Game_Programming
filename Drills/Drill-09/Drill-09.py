@@ -22,6 +22,11 @@ class Boy:
     def draw(self):
         self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 
+class Ball:
+    def __init__(self):
+        self.x, self.y = random.randint(0, 800), 599
+        self.frame = 0
+        self.image = load_image('ball21x21.png')
 
 def handle_events():
     global running
