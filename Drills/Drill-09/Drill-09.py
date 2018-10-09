@@ -28,6 +28,10 @@ class Ball:
         self.frame = 0
         self.image = load_image('ball21x21.png')
 
+    def update(self):
+        self.y -= 5
+
+
 def handle_events():
     global running
     events = get_events()
