@@ -26,10 +26,11 @@ class Ball:
     def __init__(self):
         self.x, self.y = random.randint(0, 800), 599
         self.image = load_image('ball21x21.png')
+        self.falling_speed = random.randint(5, 20)
 
     def update(self):
         if (self.y > 60):
-            self.y -= random.randint(1, 10)
+            self.y -= self.falling_speed
 
     def draw(self):
         self.image.draw(self.x, self.y)
