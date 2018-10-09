@@ -31,6 +31,8 @@ class Ball:
     def update(self):
         self.y -= 5
 
+    def draw(self):
+        self.image.draw(self.x, self.y)
 
 def handle_events():
     global running
