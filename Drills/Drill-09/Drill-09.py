@@ -22,10 +22,23 @@ class Boy:
     def draw(self):
         self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 
-class Ball:
+class mini_Ball:
     def __init__(self):
         self.x, self.y = random.randint(0, 800), 599
         self.image = load_image('ball21x21.png')
+        self.falling_speed = random.randint(5, 20)
+
+    def update(self):
+        if (self.y > 60):
+            self.y -= self.falling_speed
+
+    def draw(self):
+        self.image.draw(self.x, self.y)
+
+class big_Ball:
+    def __init__(self):
+        self.x, self.y = random.randint(0, 800), 599
+        self.image = load_image('ball41x41.png')
         self.falling_speed = random.randint(5, 20)
 
     def update(self):
@@ -49,7 +62,8 @@ open_canvas()
 
 #boy = Boy()
 team = [Boy() for i in range(11)]
-balls = [Ball() for i in range(21)]
+balls = [mini_Ball() for i in range(11)]
+balls_2 = [big_Ball() for j in range(11)]
 grass = Grass()
 
 
@@ -64,8 +78,9 @@ while running:
     #team.update()
     for boy in team:
         boy.update()
-
     for ball in balls:
+        ball.update()
+    for ball in balls_2:
         ball.update()
 
     clear_canvas()
@@ -73,8 +88,9 @@ while running:
 
     for boy in team:
         boy.draw()
-
     for ball in balls:
+        ball.draw()
+    for ball in balls_2:
         ball.draw()
 
     update_canvas()
