@@ -35,8 +35,7 @@ def run_to_left_animation(x, y):
 
     #clear_canvas()
     kpu_ground.draw(KPU_WIDTH / 2, KPU_HEIGHT / 2)
-    character.clip_draw(0,left, 100, 100, x, y)
-    character.clip_draw(frame * 100, left, 100, 100, pos[0[0]], pos[0[1]])
+    character.clip_draw(frame * 100, left, 100, 100, x, y)
     update_canvas()
     frame = (frame + 1) % 8
     delay(0.05)
@@ -71,6 +70,7 @@ def draw_curve_points(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10):
         t = i / 100
         x = (2*t**2-3*t+1)*p1[0]+(-4*t**2+4*t)*p2[0]+(2*t**2-t)*p3[0]
         y = (2*t**2-3*t+1)*p1[1]+(-4*t**2+4*t)*p2[1]+(2*t**2-t)*p3[1]
+        character.draw(p1[0], p1[1])
         run_to_left_animation(x, y)
 
     # draw p2-p3

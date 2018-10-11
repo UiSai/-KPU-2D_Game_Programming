@@ -47,6 +47,7 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             running = False
+            print('bbye')
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
             print('bye')
@@ -66,3 +67,4 @@ running = True
 while running:
     move_point_to_point(position[n - 1], position[n])
     n = (n + 1) % size
+    print(position)
