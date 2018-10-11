@@ -1,7 +1,6 @@
 import game_framework
 from pico2d import *
-import start_state
-
+import title_state
 
 name = "StartState"
 image = None
@@ -19,11 +18,21 @@ def exit():
 
 
 def update():
-    pass
+    global logo_time
+
+    if(logo_time > 1.0):
+        logo_time = 0
+        #game_framework.quit()
+        game_framework.push_state(title_state)
+    delay(0.01)
+    logo_time += 0.01
 
 
 def draw():
-    pass
+    global image
+    clear_canvas()
+    image.draw(400, 300)
+    update_canvas()
 
 
 
@@ -31,7 +40,11 @@ def draw():
 def handle_events():
     events = get_events()
 
-    pass
+    for event in events:
+        if event.type == SDL_QUIT:
+            game_framework.quit()
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
+            game_framework.quit()
 
 
 def pause(): pass
@@ -39,7 +52,3 @@ def pause(): pass
 
 def resume(): pass
 
-
-open_canvas()
-game_framework.run(start_state)
-close_canvas()
