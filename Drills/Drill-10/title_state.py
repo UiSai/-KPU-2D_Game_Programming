@@ -2,6 +2,7 @@ import game_framework
 from pico2d import *
 
 import main_state
+import start_state
 
 name = "TitleState"
 image = None
@@ -25,7 +26,7 @@ def handle_events():
             game_framework.quit()
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                game_framework.pop_state()
+                game_framework.change_state(start_state)
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(main_state)
 
