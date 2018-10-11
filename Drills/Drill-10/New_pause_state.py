@@ -9,7 +9,6 @@ pause_second = 0.0
 
 def enter():
     global image
-    #image = load_image('pausee.png')
     image = load_image('pause.png')
 
 
