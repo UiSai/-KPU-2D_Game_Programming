@@ -1,6 +1,7 @@
 import game_framework
 from pico2d import *
 
+import main_state
 
 name = "PauseState"
 image = None
@@ -9,7 +10,9 @@ pause_second = 0.0
 
 def enter():
     global image
+    global pause_second
     image = load_image('pause.png')
+    pause_second = 0
 
 
 def exit():
@@ -18,22 +21,28 @@ def exit():
 
 
 def update():
-    global pause_second
-
-    if (pause_second > 0.5):
-        pause_second = 0
-        clear_canvas()
-        update_canvas()
-        delay(0.5)
-    delay(0.01)
-    pause_second += 0.01
+    pass
 
 
 def draw():
     global image
-    clear_canvas()
-    image.draw(400, 300)
-    update_canvas()
+    global pause_second
+
+    if (pause_second < 0.5):
+        clear_canvas()
+        main_state.draw()
+        image.draw(400, 300)
+        update_canvas()
+        delay(0.01)
+        pause_second += 0.01
+    elif (0.5 < pause_second < 1):
+        clear_canvas()
+        main_state.draw()
+        update_canvas()
+        delay(0.01)
+        pause_second += 0.01
+    else:
+        pause_second = 0
 
 
 def handle_events():
