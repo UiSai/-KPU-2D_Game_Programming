@@ -5,7 +5,7 @@ import title_state
 
 name = "PauseState"
 image = None
-logo_time = 0.0
+pause_second = 0.0
 
 
 def enter():
