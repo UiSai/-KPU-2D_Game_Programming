@@ -23,14 +23,13 @@ class Ghost:
         self.image.draw(self.x, self.y)
 
     def update(self):
+        self.deg += 1
+        self.rad = radians(self.deg)
+        self.x = self.x_standard + (100 * cos(self.rad))
+        self.y = self.y_standard + (100 * sin(self.rad))
+        self.image.opacify(random.uniform(0.0, 1.0))
         if self.i < 100:
             self.i += 3
             t = self.i / 100
-            self.x = (1 - t) * self.start_x + t * self.x_standard
-            self.y = (1 - t) * self.start_y + t * self.y_standard
-        else:
-            self.deg += 1
-            self.rad = radians(self.deg)
-            self.x = self.x_standard + (100 * cos(self.rad))
-            self.y = self.y_standard + (100 * sin(self.rad))
-            self.image.opacify(random.uniform(0.0, 1.0))
+            self.x = (1 - t) * self.start_x + t * self.x
+            self.y = (1 - t) * self.start_y + t * self.y
