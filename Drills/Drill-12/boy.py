@@ -151,7 +151,7 @@ class Boy:
         game_world.add_object(ball, 1)
 
     def ghost(self):
-        ghost = Ghost(self.x, self.y)
+        ghost = Ghost()
         game_world.add_object(ghost, 1)
 
     def add_event(self, event):
