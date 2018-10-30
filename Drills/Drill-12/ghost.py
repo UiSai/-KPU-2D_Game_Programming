@@ -33,4 +33,4 @@ class Ghost:
             self.rad = radians(self.deg)
             self.x = self.x_standard + (100 * cos(self.rad))
             self.y = self.y_standard + (100 * sin(self.rad))
-            self.image.opacify(random.randint(0, 1))
+            self.image.opacify(random.uniform(0.0, 1.0))
