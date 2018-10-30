@@ -44,18 +44,19 @@ class IdleState:
             boy.velocity -= RUN_SPEED_PPS
         elif event == LEFT_UP:
             boy.velocity += RUN_SPEED_PPS
+        boy.timer = 0
 
     @staticmethod
     def exit(boy, event):
+        game_world.remove_object(boy.ghost)
         if event == SPACE:
             boy.fire_ball()
-        pass
 
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        timer = get_time()
-        if timer > 2:
+        boy.timer += game_framework.frame_time
+        if boy.timer > 2:
             boy.add_event(SLEEP_TIMER)
 
     @staticmethod
@@ -141,6 +142,7 @@ class Boy:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.timer = 0
 
     def fire_ball(self):
         ball = Ball(self.x, self.y, self.dir*3)
