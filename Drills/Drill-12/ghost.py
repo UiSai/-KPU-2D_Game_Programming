@@ -6,18 +6,6 @@ import random
 import boy
 import game_framework
 
-Distance = 2 * 200 * 3.14
-Second = 1
-CMeter = 37.699104  #CMeter Per Second
-Degree = 720
-PixelPerCMeter = (1 / 0.03)
-PixelPerSecond = (CMeter * PixelPerCMeter)
-CMeterPerDegree = (CMeter / 720)
-SecondPerDegree = (Second / Degree)
-
-# PixelPerSecond = PixelPerMeter * Meter
-# self.x = PixelPerSecond * game_framework.frame_time
-
 class Ghost:
     image = None
 
@@ -42,7 +30,7 @@ class Ghost:
         self.y = self.y_standard + (100 * sin(self.rad))
         if self.i < 100:
             self.image.opacify(self.opacity)
-            self.i += 3
+            self.i += game_framework.frame_time * 100
             t = self.i / 100
             self.x = (1 - t) * self.start_x + t * self.x
             self.y = (1 - t) * self.start_y + t * self.y
