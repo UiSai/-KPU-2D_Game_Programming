@@ -1,6 +1,7 @@
 import game_framework
 from pico2d import *
 from ball import Ball
+from ghost import Ghost
 
 import game_world
 
@@ -15,7 +16,6 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0
 FRAMES_PER_ACTION = 8
-
 
 
 # Boy Event
@@ -56,7 +56,10 @@ class IdleState:
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         boy.timer -= 1
+        boy.timer2 = get_time()
         if boy.timer == 0:
+            boy.add_event(SLEEP_TIMER)
+        if boy.timer2 > 3:
             boy.add_event(SLEEP_TIMER)
 
     @staticmethod
@@ -105,6 +108,7 @@ class SleepState:
     @staticmethod
     def enter(boy, event):
         boy.frame = 0
+        boy.ghost()
 
     @staticmethod
     def exit(boy, event):
@@ -120,10 +124,6 @@ class SleepState:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
         else:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
-
-
-
-
 
 
 next_state_table = {
@@ -146,11 +146,13 @@ class Boy:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
 
-
     def fire_ball(self):
         ball = Ball(self.x, self.y, self.dir*3)
         game_world.add_object(ball, 1)
 
+    def ghost(self):
+        ghost = Ghost(self.x, self.y)
+        game_world.add_object(ghost, 1)
 
     def add_event(self, event):
         self.event_que.insert(0, event)
