@@ -5,6 +5,18 @@ import game_world
 import random
 import boy
 
+Distance = 2 * 200 * 3.14
+Second = 1
+CMeter = 37.699104  #CMeter Per Second
+Degree = 720
+PixelPerCMeter = (1 / 0.03)
+PixelPerSecond = (CMeter * PixelPerCMeter)
+CMeterPerDegree = (CMeter / 720)
+SecondPerDegree = (Second / Degree)
+
+# PixelPerSecond = PixelPerMeter * Meter
+# self.x = PixelPerSecond * game_framework.frame_time
+
 class Ghost:
     image = None
 
@@ -23,8 +35,8 @@ class Ghost:
         self.image.draw(self.x, self.y)
 
     def update(self):
-        self.deg += 1
-        self.rad = radians(self.deg)
+        timer = get_time()
+        self.rad += (4 * 3.141592) / 60
         self.x = self.x_standard + (100 * cos(self.rad))
         self.y = self.y_standard + (100 * sin(self.rad))
         self.image.opacify(random.uniform(0.0, 1.0))
