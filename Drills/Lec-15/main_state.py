@@ -7,21 +7,27 @@ import game_framework
 import game_world
 
 from boy import Boy
-from grass import Grass
-from enemy import Enemy
+from background import FixedBackground as Background
+from background import InfiniteBackground as Background
 
 
 name = "MainState"
 
 boy = None
+background = None
 
 
 def enter():
     global boy
     boy = Boy()
-    grass = Grass()
-    game_world.add_object(grass, 0)
     game_world.add_object(boy, 1)
+
+    global background
+    background = Background()
+    game_world.add_object(background, 0)
+
+    background.set_center_object(boy)
+    boy.set_background(background)
 
 
 def exit():
@@ -50,7 +56,6 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    delay(0.01)
 
 
 def draw():
