@@ -70,10 +70,9 @@ class WalkingState:
         boy.x += boy.x_velocity * game_framework.frame_time
         boy.y += boy.y_velocity * game_framework.frame_time
 
-        """ 
         boy.x = clamp(0, boy.x, boy.bg.w)
         boy.y = clamp(0, boy.y, boy.bg.h)
-
+        """
         boy.x = clamp(boy.canvas_width // 2, boy.x, boy.bg.w - boy.canvas_width // 2)
         boy.y = clamp(boy.canvas_height // 2, boy.y, boy.bg.h - boy.canvas_height // 2)
         """
@@ -81,8 +80,8 @@ class WalkingState:
 
     @staticmethod
     def draw(boy):
-        cx, cy = boy.canvas_width // 2, boy.canvas_height // 2
-        # cx, cy = boy.x - boy.bg.window_left, boy.y - boy.bg.window_bottom
+        #cx, cy = boy.canvas_width // 2, boy.canvas_height // 2
+        cx, cy = boy.x - boy.bg.window_left, boy.y - boy.bg.window_bottom
         # cx, cy = boy.canvas_width // 2, boy.canvas_height // 2
 
         if boy.x_velocity > 0:
@@ -150,7 +149,7 @@ class Boy:
 
     def draw(self):
         self.cur_state.draw(self)
-        self.font.draw(self.canvas_width//2 - 60, self.canvas_height//2 + 50, '(%5d, %5d)' % (self.x, self.y), (255, 255, 0))  # 캐릭터 좌표?
+        self.font.draw(self.x - self.bg.window_left - 50, self.y - self.bg.window_bottom + 50, '(%5d, %5d)' % (self.x, self.y), (255, 255, 0))  # 캐릭터 좌표?
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

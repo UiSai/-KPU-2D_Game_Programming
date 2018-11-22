@@ -67,13 +67,11 @@ class WalkingState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
-        #st_x1 =
-        #st_y1 = 0
         boy.x += boy.x_velocity * game_framework.frame_time
         boy.y += boy.y_velocity * game_framework.frame_time
 
-        boy.x = clamp(, boy.x, 1770)
-        boy.y = clamp(100, boy.y, 1100)
+        boy.x = clamp(0, boy.x, 1837)
+        boy.y = clamp(0, boy.y, 1109)
 
         """
         boy.x = clamp(boy.canvas_width // 2, boy.x, boy.bg.w - boy.canvas_width // 2)
@@ -128,9 +126,16 @@ class Boy:
         self.event_que = []
         self.cur_state = WalkingState
         self.cur_state.enter(self, None)
+        self.get_ball = 0
+        self.eat_sound = load_wav('pickup.wav')
+        self.eat_sound.set_volume(32)
+
+    def eat(self, ball):
+        self.eat_sound.play()
+        self.get_ball += 1
 
     def get_bb(self):
-        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+        return self.x - self.bg.window_left - 25, self.y - self.bg.window_bottom - 50, self.x - self.bg.window_left + 25, self.y - self.bg.window_bottom + 50
 
 
     def set_background(self, bg):
@@ -151,7 +156,7 @@ class Boy:
 
     def draw(self):
         self.cur_state.draw(self)
-        self.font.draw(self.canvas_width//2 - 60, self.canvas_height//2 + 50, '(%5d, %5d)' % (self.x, self.y), (255, 255, 0))  # 캐릭터 좌표?
+        self.font.draw(self.x - self.bg.window_left - 50, self.y - self.bg.window_bottom + 60, 'Ball : %s' % (self.get_ball), (255, 255, 0))  # 캐릭터 좌표?
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
